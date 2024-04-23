@@ -1,0 +1,5 @@
+package com.microservice.loanService.constant;
+
+public class LoansConstants {
+
+}

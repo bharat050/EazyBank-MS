@@ -1,0 +1,5 @@
+package com.microservice.cardService.entity;
+
+public class CardEntity {
+
+}

@@ -1,0 +1,5 @@
+package com.microservice.loanService.service;
+
+public interface ILoansService {
+
+}

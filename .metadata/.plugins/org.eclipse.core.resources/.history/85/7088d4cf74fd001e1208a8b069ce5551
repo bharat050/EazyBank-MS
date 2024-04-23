@@ -1,0 +1,5 @@
+package com.microservice.cardService.repository;
+
+public class CardsRepository {
+
+}

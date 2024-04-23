@@ -1,0 +1,5 @@
+package com.microservice.loanService.mapper;
+
+public class LoansMapper {
+
+}

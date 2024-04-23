@@ -1,0 +1,5 @@
+package com.microservice.loanService.audit;
+
+public class AuditAwareImpl {
+
+}

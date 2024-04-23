@@ -1,0 +1,5 @@
+package com.microservice.cardService.constants;
+
+public class CardConstants {
+
+}

@@ -1,0 +1,5 @@
+package com.microservice.cardService.exception;
+
+public class CardAlreadyExistsException {
+
+}
