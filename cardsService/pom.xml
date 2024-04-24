@@ -84,7 +84,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>bharat050/cards:s4</image>
+						<image>bharat050/${project.artifactId}:s6</image>
 					</to>
 				</configuration>
 			</plugin>

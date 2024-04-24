@@ -1,5 +1,8 @@
 package com.microservice.accountService.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.accountService.constants.AccountConstant;
+import com.microservice.accountService.dto.AccountContactInfoDto;
 import com.microservice.accountService.dto.CustomerDto;
 import com.microservice.accountService.dto.ErrorResponseDto;
 import com.microservice.accountService.dto.ResponseDto;
@@ -28,18 +32,26 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping(path = "accounts", produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor
 @Validated
 @Tag(name = "Accounts related CRUD APIs",
 description = "It has 4 APIs can perform Create, Update, Read and Delete the data from the DB")
 public class AccountsController {
 	
+	@Autowired
 	ImplAccountService iAccountService;
+	
+	@Value("${build.version}")
+	private String buildVersion;
+	
+	@Autowired
+	private Environment environment;
 
+	@Autowired
+	private AccountContactInfoDto accountContactInfoDto;
+	
 	@Operation(
 			summary = "Creating Account",
 			description = "Create Account of customer by taking its personal info.")
@@ -103,5 +115,62 @@ public class AccountsController {
 		
 		return ResponseEntity.status(HttpStatus.ACCEPTED)
 				.body(new ResponseDto(AccountConstant.STATUS_200, AccountConstant.MESSAGE_200));
+	}
+	
+	@Operation(
+			summary = "Build Info",
+			description = "Getting Build version info of the application")
+	@ApiResponses({
+			@ApiResponse(
+					responseCode = "200",
+					description = "Updated Successfully"
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Internal_Server_error",
+					content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+			)
+	})
+	@GetMapping("/build-info")
+	public ResponseEntity<String> getBuildVersion(){
+		return new ResponseEntity<>(buildVersion, HttpStatus.OK);
+	}
+	
+	@Operation(
+			summary = "Java version Info",
+			description = "Getting Java version info of the application")
+	@ApiResponses({
+			@ApiResponse(
+					responseCode = "200",
+					description = "Updated Successfully"
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Internal_Server_error",
+					content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+			)
+	})
+	@GetMapping("/java-info")
+	public ResponseEntity<String> getJavaVersion(){
+		return new ResponseEntity<>(environment.getProperty("JAVA_PATH"), HttpStatus.OK);
+	}
+	
+	@Operation(
+			summary = "COntact Info",
+			description = "Getting Contact details info of the application")
+	@ApiResponses({
+			@ApiResponse(
+					responseCode = "200",
+					description = "Updated Successfully"
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Internal_Server_error",
+					content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+			)
+	})
+	@GetMapping("/contact-info")
+	public ResponseEntity<AccountContactInfoDto> getContactDetails(){
+		return new ResponseEntity<>(accountContactInfoDto, HttpStatus.OK);
 	}
 }

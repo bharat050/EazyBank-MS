@@ -8,7 +8,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.microservice.cardService.constants.CardsConstants;
+import com.microservice.cardService.dto.CardContactInfoDto;
 import com.microservice.cardService.dto.CardsDto;
 import com.microservice.cardService.dto.ErrorResponseDto;
 import com.microservice.cardService.dto.ResponseDto;
@@ -24,11 +28,20 @@ import com.microservice.cardService.service.ICardsService;
 @Tag(name = "CRUD REST APIs for Cards in EazyBank", description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH AND DELETE card details")
 @RestController
 @RequestMapping(path = "/api", produces = { MediaType.APPLICATION_JSON_VALUE })
-@AllArgsConstructor
 @Validated
 public class CardsController {
-
+	
+	@Autowired
 	private ICardsService iCardsService;
+	
+	@Value("${build.version}")
+	private String buildVersion;
+	
+	@Autowired
+	private Environment environment;
+
+	@Autowired
+	private CardContactInfoDto cardContactInfoDto;
 
 	@Operation(summary = "Create Card REST API", description = "REST API to create new Card inside EazyBank")
 	@ApiResponses({ @ApiResponse(responseCode = "201", description = "HTTP Status CREATED"),
@@ -86,6 +99,63 @@ public class CardsController {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
 					.body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_DELETE));
 		}
+	}
+	
+	@Operation(
+			summary = "Build Info",
+			description = "Getting Build version info of the application")
+	@ApiResponses({
+			@ApiResponse(
+					responseCode = "200",
+					description = "Updated Successfully"
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Internal_Server_error",
+					content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+			)
+	})
+	@GetMapping("/build-info")
+	public ResponseEntity<String> getBuildVersion(){
+		return new ResponseEntity<>(buildVersion, HttpStatus.OK);
+	}
+	
+	@Operation(
+			summary = "Java version Info",
+			description = "Getting Java version info of the application")
+	@ApiResponses({
+			@ApiResponse(
+					responseCode = "200",
+					description = "Updated Successfully"
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Internal_Server_error",
+					content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+			)
+	})
+	@GetMapping("/java-info")
+	public ResponseEntity<String> getJavaVersion(){
+		return new ResponseEntity<>(environment.getProperty("JAVA_PATH"), HttpStatus.OK);
+	}
+	
+	@Operation(
+			summary = "COntact Info",
+			description = "Getting Contact details info of the application")
+	@ApiResponses({
+			@ApiResponse(
+					responseCode = "200",
+					description = "Updated Successfully"
+			),
+			@ApiResponse(
+					responseCode = "500",
+					description = "Internal_Server_error",
+					content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+			)
+	})
+	@GetMapping("/contact-info")
+	public ResponseEntity<CardContactInfoDto> getContactDetails(){
+		return new ResponseEntity<>(cardContactInfoDto, HttpStatus.OK);
 	}
 
 }

@@ -1,0 +1,31 @@
+spring:
+ application:
+  name: accountsService
+ datasource:
+  url: jdbc:h2:mem:testDB
+  driverClassName: org.h2.Driver
+  username: sa
+  password: ''
+ h2:
+  console:
+   enabled: true
+ jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+     ddl-auto: update
+    show-sql: true
+    
+server:
+  port: 8080  
+  
+build:
+ version: "3.0"
+ 
+accounts:
+ message: "Welcome to the EazyBank account related contact info."
+ contactDetails: 
+  name: "Bharat"
+  email: "bharat@gmail.com"
+ onCallSupport:
+  - "(+91)- 1234567890"
+  - "(+91)- 1234567891"
