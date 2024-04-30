@@ -6,6 +6,7 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="handleMe"/>
 		<list key="findhistory">
+			<item value="distros"/>
 			<item value="validation"/>
 		</list>
 		<list key="replacehistory">

@@ -1,0 +1,11 @@
+build:
+ version: "1.0"
+ 
+accounts:
+ message: "Welcome to the EazyBank ACCOUNTs related CONTACT info. PRODUCTION env docker"
+ contactDetails: 
+  name: "Manas - Product Manager"
+  email: "{cipher}4b128013b16d735b0e0634288cdd2a961b357f06736104a6f71e160e8b0a9d16"
+ onCallSupport:
+  (+91)- 1434567890
+  (+91)- 1874567891

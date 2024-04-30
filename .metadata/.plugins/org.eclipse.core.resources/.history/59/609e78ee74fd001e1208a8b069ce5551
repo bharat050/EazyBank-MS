@@ -1,5 +1,0 @@
-package com.microservice.cardService.service;
-
-public interface ICardsService {
-
-}

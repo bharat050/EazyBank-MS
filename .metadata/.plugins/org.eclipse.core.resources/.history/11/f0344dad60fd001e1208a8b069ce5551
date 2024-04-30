@@ -1,5 +1,0 @@
-package com.microservice.loanService.service.serviceImpl;
-
-public class LoansServiceImpl {
-
-}

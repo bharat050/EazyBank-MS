@@ -1,5 +1,0 @@
-package com.microservice.loanService.dto;
-
-public class ResponseDto {
-
-}

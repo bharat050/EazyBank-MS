@@ -1,5 +1,0 @@
-package com.microservice.cardService.mapper;
-
-public class CardsMapper {
-
-}

@@ -1,6 +1,6 @@
 spring:
  application:
-  name: accountsService
+  name: accounts
  datasource:
   url: jdbc:h2:mem:testDB
   driverClassName: org.h2.Driver
@@ -14,25 +14,22 @@ spring:
     hibernate:
      ddl-auto: update
     show-sql: true
- config:
-  import:
-   - "application_qa.yml"
-   - "application_prod.yml"
  profiles:
-  active:
-   - "prod"
+  active: "prod"
+ config:
+  import: "optional:configserver:http://localhost:8071/"
+ rabbitmq:
+  host: "localhost"
+  port: 5672
+  username: "guest"
+  password: "guest"
+  
     
 server:
-  port: 8080  
+  port: 8080
   
-build:
- version: "3.0"
- 
-accounts:
- message: "Welcome to the EazyBank account related contact info. IN DEV env"
- contactDetails: 
-  name: "Bharat - Tech Lead"
-  email: "bharat@gmail.com"
- onCallSupport:
-  - "(+91)- 1234567890"
-  - "(+91)- 1234567891"
+management:
+ endpoints:
+  web:
+   exposure:
+    include: "*"

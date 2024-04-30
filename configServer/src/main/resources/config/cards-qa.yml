@@ -1,0 +1,11 @@
+build:
+ version: "2.0"
+ 
+cards:
+ message: "Welcome to the EazyBank cards related contact info. IN QA env"
+ contactDetails: 
+  name: "Rohit - QA Lead"
+  email: "rohit@gmail.com"
+ onCallSupport:
+  (+91)- 12345662390
+  (+91)- 12345635491

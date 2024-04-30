@@ -1,0 +1,11 @@
+build:
+ version: "3.0"
+ 
+accounts:
+ message: "Welcome to the EazyBank account related contact info. IN DEV env"
+ contactDetails: 
+  name: "Bharat - Tech Lead"
+  email: "bharat@gmail.com"
+ onCallSupport:
+  - "(+91)- 1234567890"
+  - "(+91)- 1234567891"
